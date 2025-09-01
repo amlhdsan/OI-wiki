@@ -10,33 +10,33 @@ C++ 的 **命名空间** 机制可以用来解决复杂项目中名字冲突的�
 
 ```cpp
 namespace A {
-int cnt;
+  int cnt;
 
-void f(int x) { cnt = x; }
+  void f(int x) { cnt = x; }
 }  // namespace A
 ```
 
-声明之后，在这个命名空间外部，你可以通过 `A::f(x)` 来访问命名空间 `A` 内部的 `f` 函数。
+声明之后，在这个命名空间外部，你可以通过 `A::f(x)` 来访问命名空间 `A` 内部的 `f` 函数，也可以通过 `A::cnt` 来访问命名空间 `A` 内部的 `cnt` 变量。
 
 命名空间的声明是可以嵌套的，因此下面这段代码也是允许的：
 
 ```cpp
 namespace A {
-namespace B {
-void f() { ... }
-}  // namespace B
+  namespace B {
+      void f() { ... }
+  }  // namespace B
 
-void f() {
-  B::f();  // 实际访问的是 A::B::f()，由于当前位于命名空间 A
+  void f() {
+    B::f();  // 实际访问的是 A::B::f()，由于当前位于命名空间 A
            // 内，所以可以省略前面的 A::
-}
+  }
 }  // namespace A
 
 void f()  // 这里定义的是全局命名空间的 f 函数，与 A::f 和 A::B::f
           // 都不会产生冲突
 {
-  A::f();
-  A::B::f();
+    A::f();
+    A::B::f();
 }
 ```
 
